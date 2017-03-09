@@ -1,0 +1,151 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!--ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Resources/Commands.xaml" />
+    </ResourceDictionary.MergedDictionaries>-->
+    
+    <Style x:Key="NavBtn" TargetType="Button">
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Width" Value="50" />
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="Foreground" Value="{DynamicResource ColorForeground}" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <TextBlock Name="thisButton"
+                                   Height="{TemplateBinding Height}"
+                                   Width="{TemplateBinding Width}"
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   Padding="{TemplateBinding Padding}"       
+                                   Text="{TemplateBinding Tag}"                                  
+                                    />
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="thisButton"
+                                        Property="Background" 
+                                        Value="{DynamicResource ColorHover}"/>
+                        </Trigger>
+
+                        <Trigger Property="Button.IsPressed" Value="True">
+                            <Setter TargetName="thisButton"
+                                        Property="Background" 
+                                        Value="{DynamicResource ColorPressed}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+
+                            <Setter TargetName="thisButton"
+                                        Property="Background" 
+                                        Value="{DynamicResource ColorBackgroundDisable}"/>
+                            <Setter TargetName="thisButton"
+                                        Property="Foreground" 
+                                        Value="{DynamicResource ColorForegroundDisable}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+
+                            <Setter TargetName="thisButton"
+                                        Property="Background" 
+                                        Value="{DynamicResource ColorBackgroundDisable}"/>
+                            <Setter TargetName="thisButton"
+                                        Property="Foreground" 
+                                        Value="{DynamicResource ColorForegroundDisable}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+
+        </Setter>
+    </Style>
+
+    <Style x:Key="BtnClose" TargetType="Button" BasedOn="{StaticResource NavBtn}">
+        <Setter Property="Tag" Value="&#xE711;" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <TextBlock Name="thisButton"                           
+                                            FontFamily="{TemplateBinding FontFamily}"
+                                            FontSize="{TemplateBinding FontSize}"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            Padding="{TemplateBinding Padding}"
+                                            Text="{TemplateBinding Tag}"/>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="thisButton"
+                                                        Property="Opacity" 
+                                                        Value="0.8"/>
+                            <Setter TargetName="thisButton"
+                                        Property="Background" 
+                                        Value="#e81123"/>
+                        </Trigger>
+
+                        <Trigger Property="Button.IsPressed" Value="True">
+                            <Setter TargetName="thisButton"
+                                        Property="Opacity" 
+                                        Value="0.4"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NavigationTitle" TargetType="Frame">
+        <Setter Property="Tag" Value="Vr Manager" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Frame">
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Top"
+                              Background="{DynamicResource ColorRegular}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--In this buttons Tag is Icon-->
+                            <Button Grid.Column="0"
+                                    Style="{StaticResource NavBtn}"
+                                    Command="{StaticResource NavigateToHomeCommand}"
+                                    Tag="&#xE10F;"/>
+
+                            <Button Grid.Column="1" 
+                                    Style="{StaticResource NavBtn}"
+                                    Command="NavigationCommands.BrowseBack"
+                                    Tag="&#xE0A6;"/>
+                            
+                            <Button Grid.Column="2" 
+                                    Style="{StaticResource NavBtn}"
+                                    Command="NavigationCommands.BrowseForward"
+                                    Tag="&#xE111;"/>
+
+                            <Label  Grid.Column="3"
+                                    Name="TitleContent" 
+                                    Content="{Binding Title}"
+                                    FontSize="30"    
+                                    Margin="15,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    Foreground="{DynamicResource ColorForeground}"
+                                    VerticalAlignment="Center"/>
+
+                            <Button Grid.Column="4"
+                                        Name="ExitButton"                    
+                                        Style="{StaticResource BtnClose}"
+                                        Command="{StaticResource AppCloseCommands}">
+                            </Button>
+
+                        </Grid>
+                        <ContentPresenter x:Name="PART_FrameCP"/>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
